@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="generator" content="Observable Framework v1.13.4">
+<title>CSC 477 - A5</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" crossorigin>
+<link rel="preload" as="style" href="./_observablehq/theme-air.d5b7fcbe.css">
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" crossorigin>
+<link rel="stylesheet" type="text/css" href="./_observablehq/theme-air.d5b7fcbe.css">
+<link rel="modulepreload" href="./_observablehq/client.c7137bdd.js">
+<link rel="modulepreload" href="./_observablehq/runtime.607a8173.js">
+<link rel="modulepreload" href="./_observablehq/stdlib.277aeab8.js">
+<link rel="modulepreload" href="./_npm/d3@7.9.0/66d82917.js">
+<link rel="modulepreload" href="./_npm/htl@0.3.1/72f4716c.js">
+<link rel="modulepreload" href="./_npm/d3-dsv@3.0.1/9cffc2bd.js">
+<link rel="modulepreload" href="./_npm/d3-array@3.2.4/e93ca09f.js">
+<link rel="modulepreload" href="./_npm/d3-axis@3.0.0/0f2de24d.js">
+<link rel="modulepreload" href="./_npm/d3-brush@3.0.0/65eb105b.js">
+<link rel="modulepreload" href="./_npm/d3-chord@3.0.1/7ef8fb2e.js">
+<link rel="modulepreload" href="./_npm/d3-color@3.1.0/aeb57b94.js">
+<link rel="modulepreload" href="./_npm/d3-contour@4.0.2/1d2aed74.js">
+<link rel="modulepreload" href="./_npm/d3-delaunay@6.0.4/87adea64.js">
+<link rel="modulepreload" href="./_npm/d3-dispatch@3.0.1/9ba9c7f3.js">
+<link rel="modulepreload" href="./_npm/d3-drag@3.0.0/4202580c.js">
+<link rel="modulepreload" href="./_npm/d3-ease@3.0.1/cdd7e898.js">
+<link rel="modulepreload" href="./_npm/d3-fetch@3.0.1/b4e2ad9a.js">
+<link rel="modulepreload" href="./_npm/d3-force@3.0.0/5e804d15.js">
+<link rel="modulepreload" href="./_npm/d3-format@3.1.2/3785bf2d.js">
+<link rel="modulepreload" href="./_npm/d3-geo@3.1.1/40599fb3.js">
+<link rel="modulepreload" href="./_npm/d3-hierarchy@3.1.2/e49e792c.js">
+<link rel="modulepreload" href="./_npm/d3-interpolate@3.0.1/8d1e5425.js">
+<link rel="modulepreload" href="./_npm/d3-path@3.1.0/20d3f133.js">
+<link rel="modulepreload" href="./_npm/d3-polygon@3.0.1/7553081f.js">
+<link rel="modulepreload" href="./_npm/d3-quadtree@3.0.1/0dfd751c.js">
+<link rel="modulepreload" href="./_npm/d3-random@3.0.1/3c90ee06.js">
+<link rel="modulepreload" href="./_npm/d3-scale@4.0.2/720b7f0a.js">
+<link rel="modulepreload" href="./_npm/d3-scale-chromatic@3.1.0/ba24c2e7.js">
+<link rel="modulepreload" href="./_npm/d3-selection@3.0.0/4d94e5b7.js">
+<link rel="modulepreload" href="./_npm/d3-shape@3.2.0/6d3a6726.js">
+<link rel="modulepreload" href="./_npm/d3-time@3.1.0/9f03c579.js">
+<link rel="modulepreload" href="./_npm/d3-time-format@4.1.0/07c9626f.js">
+<link rel="modulepreload" href="./_npm/d3-timer@3.0.1/b58a267d.js">
+<link rel="modulepreload" href="./_npm/d3-transition@3.0.1/004da2ac.js">
+<link rel="modulepreload" href="./_npm/d3-zoom@3.0.0/b5786b3f.js">
+<link rel="modulepreload" href="./_npm/internmap@2.0.3/e08981d9.js">
+<link rel="modulepreload" href="./_npm/delaunator@5.1.0/d4ec0aa1.js">
+<link rel="modulepreload" href="./_npm/robust-predicates@3.0.3/42820bfa.js">
+<link rel="icon" href="./_file/observable.1af93621.png" type="image/png" sizes="32x32">
+<script type="module">
+
+import {define} from "./_observablehq/client.c7137bdd.js";
+import {registerFile} from "./_observablehq/stdlib.277aeab8.js";
+
+registerFile("./data/layoffs.csv", {"name":"./data/layoffs.csv","mimeType":"text/csv","path":"./_file/data/layoffs.7392db27.csv","lastModified":1779312934737,"size":254830});
+
+define({id: "fef58f42", inputs: ["FileAttachment"], outputs: ["d3","raw","data"], body: async (FileAttachment) => {
+const d3 = await import("./_npm/d3@7.9.0/66d82917.js");
+const raw = await FileAttachment("./data/layoffs.csv").csv({ typed: true });
+const data = raw.filter(d => d.Date_layoffs && d.Laid_Off > 0);
+return {d3,raw,data};
+}});
+
+define({id: "1a9bdb6a", inputs: ["Mutable"], outputs: ["brushRange","setBrush"], body: (Mutable) => {
+const brushRange = Mutable([null, null]);
+const setBrush = (range) => { brushRange.value = range; };
+return {brushRange,setBrush};
+}});
+
+define({id: "e620a01a", inputs: ["d3","data"], outputs: ["parseDate","formatMonth","byMonth"], body: (d3,data) => {
+const parseDate = d3.timeParse("%Y-%m-%d");
+const formatMonth = d3.timeFormat("%Y-%m");
+
+const byMonth = d3.rollups(
+  data,
+  v => d3.sum(v, d => d.Laid_Off),
+  d => formatMonth(typeof d.Date_layoffs === "string" ? parseDate(d.Date_layoffs) : d.Date_layoffs)
+)
+.map(([month, total]) => ({ date: new Date(month + "-01"), total }))
+.sort((a, b) => a.date - b.date);
+return {parseDate,formatMonth,byMonth};
+}});
+
+define({id: "63c00a3e", inputs: ["width","d3","htl","byMonth","setBrush","display"], outputs: ["margin","W","H","svg","container","tooltip","g","x","y","area","line","hoverLine","bisect","brush","brushG"], body: (width,d3,htl,byMonth,setBrush,display) => {
+const margin = { top: 20, right: 30, bottom: 35, left: 70 };
+const W = width - margin.left - margin.right;
+const H = 280;
+
+const svg = d3.create("svg").attr("width", width).attr("height", H + margin.top + margin.bottom);
+
+const container = htl.html`
+  <style>
+    #tooltip-timeline {
+      font: 10pt sans-serif;
+      background-color: white;
+      border: 1pt solid grey;
+      padding: 5px;
+      box-shadow: 3px 3px 3px darkgrey;
+      max-width: 40ch;
+      z-index: 1;
+      visibility: hidden;
+      position: absolute;
+      pointer-events: none;
+    }
+  </style>
+  <div id="tooltip-timeline"></div>
+  ${svg.node()}
+`;
+
+const tooltip = d3.select(container).select("#tooltip-timeline");
+
+const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
+
+const x = d3.scaleTime().domain(d3.extent(byMonth, d => d.date)).range([0, W]);
+const y = d3.scaleLinear().domain([0, d3.max(byMonth, d => d.total)]).nice().range([H, 0]);
+
+const area = d3.area().x(d => x(d.date)).y0(H).y1(d => y(d.total)).curve(d3.curveMonotoneX);
+const line = d3.line().x(d => x(d.date)).y(d => y(d.total)).curve(d3.curveMonotoneX);
+
+g.append("g")
+  .attr("transform", `translate(0,${H})`)
+  .call(d3.axisBottom(x).ticks(d3.timeMonth.every(3)).tickFormat(d3.timeFormat("%b %Y")))
+  .selectAll("text").style("text-anchor", "middle");
+
+g.append("g").call(d3.axisLeft(y).ticks(6).tickFormat(d => d3.format(",")(d)));
+
+g.append("text").attr("x", -H / 2).attr("y", -50).attr("transform", "rotate(-90)")
+  .attr("text-anchor", "middle").style("font-size", "12px").text("Employees Laid Off");
+
+g.append("path").datum(byMonth).attr("fill", "steelblue").attr("fill-opacity", 0.3).attr("d", area);
+g.append("path").datum(byMonth).attr("fill", "none").attr("stroke", "steelblue").attr("stroke-width", 2).attr("d", line);
+
+// Vertical line for tooltip crosshair
+const hoverLine = g.append("line")
+  .attr("class", "hover-line")
+  .attr("y1", 0).attr("y2", H)
+  .attr("stroke", "#999").attr("stroke-width", 1)
+  .attr("stroke-dasharray", "4")
+  .style("visibility", "hidden");
+
+const bisect = d3.bisector(d => d.date).left;
+
+const brush = d3.brushX()
+  .extent([[0, 0], [W, H]])
+  .on("brush end", ({ selection }) => {
+    setBrush(selection ? selection.map(x.invert) : [null, null]);
+  });
+
+const brushG = g.append("g").attr("class", "brush").call(brush);
+
+// Attach tooltip to the brush overlay so it works alongside brushing
+brushG.select(".overlay")
+  .on("mousemove", function(event) {
+    const [mx] = d3.pointer(event);
+    const date = x.invert(mx);
+    const i = bisect(byMonth, date);
+    const d = byMonth[Math.min(i, byMonth.length - 1)];
+    if (!d) return;
+    hoverLine.attr("x1", x(d.date)).attr("x2", x(d.date)).style("visibility", "visible");
+    tooltip.style("visibility", "visible")
+      .style("left", (event.pageX + 12) + "px")
+      .style("top", (event.pageY - 28) + "px")
+      .html(`<strong>${d3.timeFormat("%B %Y")(d.date)}</strong><br/>Laid off: ${d3.format(",")(d.total)}`);
+  })
+  .on("mouseout", function() {
+    hoverLine.style("visibility", "hidden");
+    tooltip.style("visibility", "hidden");
+  });
+display(container);
+return {margin,W,H,svg,container,tooltip,g,x,y,area,line,hoverLine,bisect,brush,brushG};
+}});
+
+define({id: "d9601003", inputs: ["brushRange","data","d3","html","display"], outputs: ["start","end","brushFiltered","totalLaidOff","numCompanies","peakCompany","formatDate","dateRange","statsDiv"], body: (brushRange,data,d3,html,display) => {
+const [start, end] = brushRange;
+const brushFiltered = (start && end)
+  ? data.filter(d => {
+      const t = typeof d.Date_layoffs === "string" ? new Date(d.Date_layoffs) : d.Date_layoffs;
+      return t >= start && t <= end;
+    })
+  : data;
+
+const totalLaidOff = d3.sum(brushFiltered, d => d.Laid_Off);
+const numCompanies = new Set(brushFiltered.map(d => d.Company)).size;
+const peakCompany = d3.rollups(brushFiltered, v => d3.sum(v, d => d.Laid_Off), d => d.Company)
+  .sort((a, b) => b[1] - a[1])[0];
+
+const formatDate = d3.timeFormat("%b %Y");
+const dateRange = (start && end) ? `${formatDate(start)} – ${formatDate(end)}` : "All Time";
+
+const statsDiv = html`<div class="stats-row">
+  <div class="stat-card"><div class="stat-value">${dateRange}</div><div class="stat-label">Selected Range</div></div>
+  <div class="stat-card"><div class="stat-value">${d3.format(",")(totalLaidOff)}</div><div class="stat-label">Total Amount Laid Off</div></div>
+  <div class="stat-card"><div class="stat-value">${numCompanies}</div><div class="stat-label">Companies Affected</div></div>
+  <div class="stat-card"><div class="stat-value">${peakCompany ? peakCompany[0] : "-"}</div><div class="stat-label">Peak Company</div></div>
+</div>`;
+display(statsDiv);
+return {start,end,brushFiltered,totalLaidOff,numCompanies,peakCompany,formatDate,dateRange,statsDiv};
+}});
+
+</script>
+</head>
+<body>
+<div id="observablehq-center">
+<main id="observablehq-main" class="observablehq">
+<h1>Global Tech Layoffs Over Time</h1>
+<p class="subtitle">An interactive exploration of layoffs across tech companies worldwide from 2020–2025</p>
+<div class="observablehq observablehq--block"><!--:fef58f42:--></div>
+<hr>
+<h2 class="section-title">Layoffs Over Time</h2>
+<p class="section-sub">Brush the timeline to explore changes in layoffs across different time periods</p>
+<div class="observablehq observablehq--block"><!--:1a9bdb6a:--></div>
+<div class="observablehq observablehq--block"><!--:e620a01a:--></div>
+<div class="observablehq observablehq--block"><!--:63c00a3e:--></div>
+<div class="observablehq observablehq--block"><!--:d9601003:--></div>
+<hr>
+<h2 class="section-title">Design Rationale</h2>
+<p><strong>Design Goal</strong></p>
+<p>I chose to create an interactive visualization exploring tech layoffs worldwide from 2020-2025. This is the topic for my group project, so I chose to use assignment 5 as a chance to play around with the dataset and find ways to visual the data in a helpful way. Over the last several years, layoffs in the tech industry became a major topic across news outlets and social media, especially following the rapid hiring growth during the COVID-19 pandemic and the subsequent economic slowdown. As well, with the release of generative AI replacing jobs and creating new ones, I wanted to design a visualization that helps users explore how layoffs changed over time and identify periods where layoffs were especially severe.</p>
+<p>Rather than attempting to visualize every aspect of the dataset, I focused specifically on temporal patterns and interactive exploration. The main goal of the visualization is to allow users to investigate how layoffs fluctuated month-to-month and examine summary statistics for specific time periods.</p>
+<p><strong>Visualization and Encoding Choices</strong></p>
+<p>The primary visualization is an area and line chart showing the total number of employees laid off over time. I chose a time-series visualization because it is one of the clearest ways to display trends, spikes, and long-term patterns in sequential data. The filled area helps emphasize the magnitude of layoffs during major events, while the line overlay improves readability and makes peaks easier to follow visually.</p>
+<p>The x-axis represents time from 2020–2025, while the y-axis represents the total number of employees laid off during each month. I used monthly aggregation to reduce noise in the data and make larger trends easier to interpret.</p>
+<p>Below the chart, I included summary statistic cards that dynamically update based on user interaction. These cards display the selected date range, total layoffs, number of companies affected, and the company responsible for the largest layoffs within the selected period. These metrics provide quick context without requiring users to manually interpret every point on the graph.</p>
+<p><strong>Interaction Design</strong></p>
+<p>The primary interaction technique used in this project is brushing. Users can drag across the timeline to select a custom date range, allowing them to focus on specific periods of interest. Once a range is selected, the summary statistics automatically update to reflect only the filtered data.</p>
+<p>I chose brushing because it creates a direct and intuitive way to explore temporal data. Instead of forcing users to rely on dropdown menus or buttons, brushing allows continuous exploration and supports rapid comparisons between different periods.</p>
+<p>I also implemented tooltips that appear when hovering over data points. These provide details-on-demand by displaying the exact month and layoff total without cluttering the chart with permanent labels.</p>
+<p><strong>Alternative Designs Considered</strong></p>
+<p>I considered using a stacked area chart separated by company, but this became visually cluttered because of the large number of companies included in the dataset. I also considered using a bar chart for monthly layoffs, but the continuous nature of the line and area chart better communicated overall trends and major spikes over time.</p>
+<p>In future iterations, I would like to add a geographic component, such as a choropleth map or a company-level bar chart, to better answer where layoffs were concentrated around the world.</p>
+<p><strong>References and Data Sources</strong></p>
+<ul>
+<li>Dataset: <a href="https://layoffs.fyi/" target="_blank" rel="noopener noreferrer">Layoffs.fyi</a> via <a href="https://www.kaggle.com/datasets/ulrikeherold/tech-layoffs-2020-2024" target="_blank" rel="noopener noreferrer">Kaggle</a></li>
+<li><a href="https://d3js.org/" target="_blank" rel="noopener noreferrer">D3.js documentation</a> — brushing (<code>d3.brushX</code>), bisector (<code>d3.bisector</code>), and data aggregation (<code>d3.rollups</code>)</li>
+<li><a href="https://observablehq.com/framework/" target="_blank" rel="noopener noreferrer">Observable Framework documentation</a> — <code>Mutable</code>, <code>FileAttachment</code>, <code>Generators.input</code></li>
+<li>Class example code — tooltip pattern using <code>htl.html</code> container, <code>attachTooltip</code> function, and enter/update/exit cycle</li>
+</ul>
+<hr>
+<style>
+h1 { font-size: 2rem; margin-bottom: 0.25rem; pointer-events: none; }
+h1 a, h1 a:hover { color: inherit; text-decoration: none; pointer-events: none; }
+.subtitle { font-size: 1.1rem; color: #666; margin-top: 0; margin-bottom: 1.5rem; }
+.section-title { pointer-events: none; }
+.section-title a, .section-title a:hover { color: inherit; text-decoration: none; pointer-events: none; }
+.section-sub { color: #555; margin-top: -0.5rem; margin-bottom: 1rem; }
+hr { margin: 2rem 0; }
+.brush .selection { fill: steelblue; fill-opacity: 0.2; stroke: steelblue; }
+.stats-row { display: flex; gap: 1.5rem; margin: 1rem 0 2rem; }
+.stat-card { background: #f5f5f5; border-radius: 8px; padding: 1rem 1.5rem; min-width: 140px; text-align: center; }
+.stat-value { font-size: 1.8rem; font-weight: 700; color: steelblue; }
+.stat-label { font-size: 0.85rem; color: #666; margin-top: 0.25rem; }
+</style>
+</main>
+<footer id="observablehq-footer">
+<div>Built with <a href="https://observablehq.com/" target="_blank" rel="noopener noreferrer">Observable</a> on <a title="2026-05-26T18:04:52">May 26, 2026</a>.</div>
+</footer>
+</div>
+</body>
+</html>
