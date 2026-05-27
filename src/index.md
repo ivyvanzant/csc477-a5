@@ -75,7 +75,7 @@ g.append("g")
   .call(d3.axisBottom(x).ticks(d3.timeMonth.every(3)).tickFormat(d3.timeFormat("%b %Y")))
   .selectAll("text").style("text-anchor", "middle");
 
-g.append("g").call(d3.axisLeft(y).ticks(6).tickFormat(d => d3.format(",")(d)));
+g.append("g").call(d3.axisLeft(y).ticks(6).tickFormat(d3.format(",")));
 
 g.append("text").attr("x", -H / 2).attr("y", -50).attr("transform", "rotate(-90)")
   .attr("text-anchor", "middle").style("font-size", "12px").text("Employees Laid Off");
@@ -137,7 +137,7 @@ const peakCompany = d3.rollups(brushFiltered, v => d3.sum(v, d => d.Laid_Off), d
   .sort((a, b) => b[1] - a[1])[0];
 
 const formatDate = d3.timeFormat("%b %Y");
-const dateRange = (start && end) ? `${formatDate(start)} – ${formatDate(end)}` : "All Time";
+const dateRange = (start && end) ? `${formatDate(start)} - ${formatDate(end)}` : "All Time";
 
 const statsDiv = html`<div class="stats-row">
   <div class="stat-card"><div class="stat-value">${dateRange}</div><div class="stat-label">Selected Range</div></div>
@@ -152,17 +152,19 @@ display(statsDiv);
 
 <h2 class="section-title">Design Rationale</h2>
 
+<br/>
+
 **Design Goal**
 
-I chose to create an interactive visualization exploring tech layoffs worldwide from 2020-2025. This is the topic for my group project, so I chose to use assignment 5 as a chance to play around with the dataset and find ways to visual the data in a helpful way. Over the last several years, layoffs in the tech industry became a major topic across news outlets and social media, especially following the rapid hiring growth during the COVID-19 pandemic and the subsequent economic slowdown. As well, with the release of generative AI replacing jobs and creating new ones, I wanted to design a visualization that helps users explore how layoffs changed over time and identify periods where layoffs were especially severe.
+I chose to create an interactive visualization exploring tech layoffs globally from 2020-2025. This is the topic for my group project, so I chose to use assignment 5 as a chance to play around with the dataset and find ways to visualize the data in a useful way. Over the last several years, layoffs in the tech industry became a major topic across news outlets and social media, especially following major worldwide events like the COVID-19 pandemic and the subsequent economic slowdown. As well, with the release of generative AI replacing jobs and creating new ones, I wanted to design a visualization that helps users explore how have layoffs changed over time and identify periods where layoffs were especially severe.
 
-Rather than attempting to visualize every aspect of the dataset, I focused specifically on temporal patterns and interactive exploration. The main goal of the visualization is to allow users to investigate how layoffs fluctuated month-to-month and examine summary statistics for specific time periods.
+Rather than attempting to visualize every aspect of the dataset, I focused specifically on temporal patterns and interactive exploration. The central question this visualization aims to answer is: **How have tech industry layoffs changed over time, and when were they most severe?** The goal is to allow users to investigate how layoffs fluctuated month-to-month and examine summary statistics for specific time periods.
 
 **Visualization and Encoding Choices**
 
 The primary visualization is an area and line chart showing the total number of employees laid off over time. I chose a time-series visualization because it is one of the clearest ways to display trends, spikes, and long-term patterns in sequential data. The filled area helps emphasize the magnitude of layoffs during major events, while the line overlay improves readability and makes peaks easier to follow visually.
 
-The x-axis represents time from 2020–2025, while the y-axis represents the total number of employees laid off during each month. I used monthly aggregation to reduce noise in the data and make larger trends easier to interpret.
+The x-axis represents time from 2020–2025 in three month increments, while the y-axis represents the total number of employees laid off during each month.
 
 Below the chart, I included summary statistic cards that dynamically update based on user interaction. These cards display the selected date range, total layoffs, number of companies affected, and the company responsible for the largest layoffs within the selected period. These metrics provide quick context without requiring users to manually interpret every point on the graph.
 
@@ -170,22 +172,20 @@ Below the chart, I included summary statistic cards that dynamically update base
 
 The primary interaction technique used in this project is brushing. Users can drag across the timeline to select a custom date range, allowing them to focus on specific periods of interest. Once a range is selected, the summary statistics automatically update to reflect only the filtered data.
 
-I chose brushing because it creates a direct and intuitive way to explore temporal data. Instead of forcing users to rely on dropdown menus or buttons, brushing allows continuous exploration and supports rapid comparisons between different periods.
+I chose brushing because it creates a direct and intuitive way to explore different data points quickly. Instead of forcing users to rely on dropdown menus or buttons, brushing allows continuous exploration and supports rapid comparisons between different periods.
 
-I also implemented tooltips that appear when hovering over data points. These provide details-on-demand by displaying the exact month and layoff total without cluttering the chart with permanent labels.
+I also implemented tooltips that appear when hovering over differnt points in the graph. These provide details-on-demand by displaying the exact month and layoff total without adding noise to the chart with many annotations. It also lets the user know the exact month they are hovering over when beginning or ending the brush.
 
 **Alternative Designs Considered**
 
-I considered using a stacked area chart separated by company, but this became visually cluttered because of the large number of companies included in the dataset. I also considered using a bar chart for monthly layoffs, but the continuous nature of the line and area chart better communicated overall trends and major spikes over time.
-
-In future iterations, I would like to add a geographic component, such as a choropleth map or a company-level bar chart, to better answer where layoffs were concentrated around the world.
+I considered using a bar chart for monthly layoffs, but the continuous nature of the line and area chart better communicated overall trends and major spikes over time. In future iterations, I would like to add a geographic component, such as a choropleth map or a company-level bar chart, to better answer where layoffs were concentrated around the world.
 
 **References and Data Sources**
 
 - Dataset: [Layoffs.fyi](https://layoffs.fyi/) via [Kaggle](https://www.kaggle.com/datasets/ulrikeherold/tech-layoffs-2020-2024)
-- [D3.js documentation](https://d3js.org/) — brushing (`d3.brushX`), bisector (`d3.bisector`), and data aggregation (`d3.rollups`)
-- [Observable Framework documentation](https://observablehq.com/framework/) — `Mutable`, `FileAttachment`, `Generators.input`
-- Class example code — tooltip pattern using `htl.html` container, `attachTooltip` function, and enter/update/exit cycle
+- [D3.js documentation](https://d3js.org/) - brushing (`d3.brushX`), bisector (`d3.bisector`), and data aggregation (`d3.rollups`)
+- [Observable Framework documentation](https://observablehq.com/framework/) - `Mutable`, `FileAttachment`
+- [View source on GitHub](https://github.com/ivyvanzant/csc477-a5)
 
 ---
 
