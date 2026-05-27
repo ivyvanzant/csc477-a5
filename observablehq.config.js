@@ -23,6 +23,7 @@ export default {
   root: "src",
 
   // Some additional configuration options and their defaults:
+  base: "/csc477-a5",
   theme: "light",
   pager: false,
   // header: "", // what to show in the header (HTML)
