@@ -174,7 +174,7 @@ The primary interaction technique used in this project is brushing. Users can dr
 
 I chose brushing because it creates a direct and intuitive way to explore different data points quickly. Instead of forcing users to rely on dropdown menus or buttons, brushing allows continuous exploration and supports rapid comparisons between different periods.
 
-I also implemented tooltips that appear when hovering over differnt points in the graph. These provide details-on-demand by displaying the exact month and layoff total without adding noise to the chart with many annotations. It also lets the user know the exact month they are hovering over when beginning or ending the brush.
+I also implemented a tooltip that appears when hovering over different points in the graph. This provides details-on-demand by displaying the exact month and layoff total without adding noise to the chart with many annotations. It also lets the user know the exact month they are hovering over when beginning or ending the brush.
 
 **Alternative Designs Considered**
 
